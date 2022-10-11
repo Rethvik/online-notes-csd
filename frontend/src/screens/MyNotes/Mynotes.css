@@ -1,0 +1,10 @@
+.accordion-button,
+.collapsed{
+    width: 100%;
+    border-color: transparent;
+    background-color: white;
+    outline: none;
+}
+.card-header{
+    background-color: white;
+}

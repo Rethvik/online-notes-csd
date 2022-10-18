@@ -12,6 +12,7 @@ import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import Protected from "./components/Protected";
 import { useSelector } from "react-redux";
 import ProtectedLogin from "./components/ProtectedLogin";
+import Dictaphone from "./components/Dictaphone";
 function App() {
   let logged = useSelector((state) => state.login.isLogged);
   let userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -45,6 +46,14 @@ function App() {
             element={
               <Protected isLogged={logged}>
                 <Mynotes />
+              </Protected>
+            }
+          ></Route>
+          <Route
+            path="/speechToText"
+            element={
+              <Protected isLogged={logged}>
+                <Dictaphone />
               </Protected>
             }
           ></Route>

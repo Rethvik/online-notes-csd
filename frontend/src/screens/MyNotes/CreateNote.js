@@ -2,14 +2,42 @@ import React, { useState } from "react";
 import MainScreen from "../../components/MainScreen";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
+import { loginActions } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { useEffect } from "react";
+import ErrorMessage from "../../components/ErrorMessage";
 function CreateNote() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
+  const type = useSelector((state) => state.login.type);
+  const item = useSelector((state) => state.login.speech);
+  useEffect(() => {
+    if (type === "title") {
+      localStorage.setItem("title", item);
+    }
+    if (type === "content") {
+      setContent(item);
+      localStorage.setItem("content", item);
+    }
+    if (type === "category") {
+      setCategory(item);
+      localStorage.setItem("category", item);
+    }
+
+    setTitle(localStorage.getItem("title"));
+    setContent(localStorage.getItem("content"));
+    setCategory(localStorage.getItem("category"));
+  }, [item, type]);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.login.error);
+
   const resetHandler = () => {
     setTitle("");
     setContent("");
@@ -19,24 +47,37 @@ function CreateNote() {
     e.preventDefault();
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let token = userInfo.token;
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        "Access-Control-Allow-Headers": "Authorization",
-      },
-    };
-    setLoading(true);
-    const { data } = await axios.post(
-      "/api/notes/create",
-      { title, content, category },
-      config
-    );
-    setLoading(false);
-    navigate("/mynotes");
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "Access-Control-Allow-Headers": "Authorization",
+        },
+      };
+      setLoading(true);
+      const { data } = await axios.post(
+        "/api/notes/create",
+        { title, content, category },
+        config
+      );
+      setLoading(false);
+      localStorage.setItem("content", "");
+      localStorage.setItem("title", "");
+      localStorage.setItem("category", "");
+      setCategory("");
+      setContent("");
+      setTitle("");
+      navigate("/mynotes");
+    } catch (e) {
+      dispatch(loginActions.error(e.response.data.message));
+      setLoading(false);
+    }
   };
+
   return (
     <MainScreen title="Create a Note">
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       {loading && <Loader />}
       <Card>
         <Card.Header>Create a new Note</Card.Header>
@@ -50,6 +91,14 @@ function CreateNote() {
                 placeholder="Enter the title"
                 onChange={(e) => setTitle(e.target.value)}
               />
+              <Button
+                style={{ marginTop: 15, marginBottom: 15 }}
+                onClick={() => {
+                  dispatch(loginActions.speechType("title"));
+                }}
+              >
+                <Link to="/speechToText">Speech</Link>
+              </Button>
             </Form.Group>
 
             <Form.Group controlId="content">
@@ -61,6 +110,14 @@ function CreateNote() {
                 rows={4}
                 onChange={(e) => setContent(e.target.value)}
               />
+              <Button
+                style={{ marginTop: 15, marginBottom: 15 }}
+                onClick={() => {
+                  dispatch(loginActions.speechType("content"));
+                }}
+              >
+                <Link to="/speechToText">Speech</Link>
+              </Button>
             </Form.Group>
 
             <Form.Group controlId="content" className="mb-3">
@@ -71,6 +128,14 @@ function CreateNote() {
                 placeholder="Enter the Category"
                 onChange={(e) => setCategory(e.target.value)}
               />
+              <Button
+                style={{ marginTop: 15, marginBottom: 15 }}
+                onClick={() => {
+                  dispatch(loginActions.speechType("category"));
+                }}
+              >
+                <Link to="/speechToText">Speech</Link>
+              </Button>
             </Form.Group>
             <Button type="submit" variant="primary">
               Create Note

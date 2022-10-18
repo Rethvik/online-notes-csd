@@ -2,6 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 const intialLoginState = {
   email: "",
   password: "",
+  speech: "",
   error: false,
   loading: false,
   isLogged: false,
@@ -30,6 +31,12 @@ const loginSlice = createSlice({
     },
     loggedOut(state) {
       state.isLogged = false;
+    },
+    speechType(state, action) {
+      state.type = action.payload;
+    },
+    speechRecg(state, action) {
+      state.speech = action.payload;
     },
   },
 });

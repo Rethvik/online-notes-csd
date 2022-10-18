@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap');
 .title {
-    font-size: 95px;
+    font-size: 55px;
+    font-family: 'Montserrat', sans-serif;
+    color:#3b0550;
   }
+  p{
+    letter-spacing: 1px;
+  font-family: 'Fuzzy Bubbles', cursive; 
+    color: #3b0550;
+}
   .subtitle {
     font-size: 25px;
     padding-top: 10px;
@@ -13,7 +22,7 @@
     min-height: 93vh;
     display: flex;
     align-items: center;
-    background-image: url("../../background1.jpg");
+    background-image: url("../../cool-background.png");
     background-position: center;
     background-size: cover;
   }

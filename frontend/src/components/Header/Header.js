@@ -29,7 +29,10 @@ function Header() {
   return (
     <React.Fragment>
       <Navbar
-        style={{ backgroundColor: "#0077b6", borderColor: "#0077b6" }}
+        style={{
+          backgroundColor: "#f75c03",
+          borderColor: "#f75c03",
+        }}
         expand="lg"
         variant="dark"
       >
@@ -54,6 +57,7 @@ function Header() {
               backgroundColor: "transparent",
               border: "None",
               outline: "None",
+              color: "#3691db",
             }}
           />
           <Navbar.Collapse id="navbarScroll">

@@ -21,6 +21,7 @@
     "mongoose": "^6.6.5",
     "nodemon": "^2.0.19",
     "path": "^0.12.7",
+    "react-icons": "^4.6.0",
     "react-router-dom": "^6.3.0"
   }
 }

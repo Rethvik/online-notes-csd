@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
 import axios from "axios";
 import Loader from "../../components/Loader";
+import Speech from "react-speech";
 import "./Mynotes.css";
+import { FaRegPlayCircle } from "react-icons/fa";
 const Mynotes = () => {
   const [userNotes, setuserNotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   let token = userInfo.token;
+
   const fetchNotes = async () => {
     const config = {
       headers: {
@@ -38,11 +41,13 @@ const Mynotes = () => {
     }
     fetchNotes();
   };
+
   useEffect(() => {
     fetchNotes();
   }, []);
+
   return (
-    <MainScreen title="Welcome Back">
+    <MainScreen title="My Notes">
       <Link id="RouterNavLink" to="/createnote">
         <Button
           variant="outline-secondary"
@@ -79,9 +84,20 @@ const Mynotes = () => {
                       textAlign: "left",
                     }}
                   >
-                    <Accordion.Item eventKey="0">{note.title}</Accordion.Item>
+                    <Accordion.Item
+                      style={{ fontFamily: "Montserrat" }}
+                      eventKey="0"
+                    >
+                      {note.title}
+                    </Accordion.Item>
                   </span>
                   <div>
+                    <Speech
+                      textAsButton={true}
+                      displayText={<FaRegPlayCircle />}
+                      rate="0.5"
+                      text={`Category ${note.category} Title ${note.title} Content ${note.content}`}
+                    ></Speech>
                     <Button
                       variant="outline-info"
                       style={{ textDecoration: "none" }}

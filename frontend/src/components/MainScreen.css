@@ -1,10 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap");
 
 .mainback {
-  min-height: 93vh;
+  min-height: 100vh;
   display: flex;
   padding: 10px 0;
-}
+ 
+      background-image: url("../notes-background.png");
+      background-position: center;
+      background-size: cover;
+    }
+
 .page {
   width: 100%;
 }
@@ -13,6 +18,7 @@
   /* font-family: "Ubuntu", sans-serif; */
   font-family: "Work Sans", sans-serif;
   padding: 5px 10px;
+  color:#fbdbe5;
 }
 
 @media only screen and (min-width: 1200px) {

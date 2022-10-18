@@ -17,11 +17,19 @@ const LandingPage = () => {
         <Row>
           <div className="intro-text">
             <div>
-              <h1 className="title">Welcome</h1>
+              <h1 className="title">Online Notes Application</h1>
+              <p>
+                Come and Save Your Notes Or Just Talk and Save Notes! No time to
+                read then Listen
+              </p>
             </div>
             <div className="buttonContainer">
               <a href="/login">
-                <Button size="lg" className="landingbutton">
+                <Button
+                  variant="outline-info"
+                  size="lg"
+                  className="landingbutton"
+                >
                   Login
                 </Button>
               </a>
@@ -29,7 +37,7 @@ const LandingPage = () => {
                 <Button
                   size="lg"
                   className="landingbutton"
-                  variant="outline-primary"
+                  variant="outline-info"
                 >
                   Register
                 </Button>

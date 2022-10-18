@@ -8,7 +8,6 @@ import "./Mynotes.css";
 const Mynotes = () => {
   const [userNotes, setuserNotes] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   let token = userInfo.token;
   const fetchNotes = async () => {
@@ -42,9 +41,8 @@ const Mynotes = () => {
   useEffect(() => {
     fetchNotes();
   }, []);
-
   return (
-    <MainScreen title="Welcome Back User">
+    <MainScreen title="Welcome Back">
       <Link id="RouterNavLink" to="/createnote">
         <Button
           variant="outline-secondary"
